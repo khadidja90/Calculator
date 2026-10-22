@@ -1,0 +1,390 @@
+
+/* ========================================
+   1. Design tokens and reset
+======================================== */
+
+:root {
+    color-scheme: light;
+
+    /* Backgrounds */
+    --page-bg: #EAF2E5;
+    --calculator-bg: #F7FAF4;
+    --display-bg: #FFFFFF;
+
+    /* Number keys */
+    --key-bg: #FFFFFF;
+    --key-hover: #E2EFDF;
+
+    /* Text colors */
+    --text-primary: #193D28;
+    --text-secondary: #526B59;
+
+    /* Green accents */
+    --accent: #276B3C;
+    --accent-hover: #1D542F;
+
+    /* Clear and delete */
+    --danger: #8B3028;
+
+    /* Borders and shadows */
+    --border: #C5D7C2;
+    --radius-lg: 24px;
+    --radius-md: 13px;
+
+    --shadow: 0 20px 55px rgba(34, 75, 43, 0.14);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-width: 280px;
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    display: grid;
+    place-items: center;
+
+    padding: 24px;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 0%,
+            rgba(117, 166, 104, 0.13),
+            transparent 55%
+        ),
+        var(--page-bg);
+
+    color: var(--text-primary);
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+button {
+    font: inherit;
+}
+
+/* ========================================
+   2. Application layout
+======================================== */
+
+.app {
+    width: 100%;
+    max-width: 390px;
+    margin: auto;
+}
+
+.calculator {
+    padding: 24px;
+
+    background: var(--calculator-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow);
+}
+
+/* ========================================
+   3. Header
+======================================== */
+
+.calculator__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-bottom: 28px;
+}
+
+.eyebrow {
+    margin-bottom: 7px;
+
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.calculator__header h1 {
+    color: var(--text-primary);
+    font-size: 25px;
+    font-weight: 650;
+    letter-spacing: -0.8px;
+}
+
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 8px 10px;
+
+    color: #365C40;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.status-indicator span {
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+
+    background: #276B3C;
+    border-radius: 50%;
+}
+
+/* ========================================
+   4. Calculator display
+======================================== */
+
+.display {
+    min-height: 142px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    gap: 15px;
+    padding: 20px 16px;
+    margin-bottom: 20px;
+
+    background: var(--display-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+
+    overflow: hidden;
+}
+
+.display__expression {
+    width: 100%;
+    min-height: 20px;
+
+    color: var(--text-secondary);
+    font-size: 15px;
+    font-weight: 500;
+    text-align: right;
+
+    overflow-wrap: anywhere;
+}
+
+.display__result {
+    display: block;
+    width: 100%;
+
+    color: var(--text-primary);
+    font-size: clamp(28px, 8vw, 40px);
+    font-weight: 600;
+    letter-spacing: -1.5px;
+    line-height: 1.2;
+    text-align: right;
+
+    overflow-wrap: anywhere;
+}
+
+/* ========================================
+   5. Keypad layout
+======================================== */
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.key {
+    min-width: 0;
+    min-height: 58px;
+
+    display: grid;
+    place-items: center;
+
+    padding: 8px;
+
+    color: var(--text-primary);
+    background: var(--key-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    font-size: 19px;
+    font-weight: 600;
+
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+
+    transition:
+        background-color 150ms ease,
+        border-color 150ms ease,
+        transform 100ms ease;
+}
+
+/* Number buttons */
+
+.key:hover {
+    background: var(--key-hover);
+    border-color: #8EB58D;
+}
+
+.key:active {
+    transform: scale(0.96);
+}
+
+.key:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* Clear and delete buttons */
+
+.key--utility {
+    color: var(--danger);
+    background: #FBEAE6;
+    border-color: #EED3CC;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.key--utility:hover {
+    color: #76251F;
+    background: #F3D6CF;
+    border-color: #DCAFA4;
+}
+
+/* Mathematical operators */
+
+.key--operator {
+    color: #194B2B;
+    background: #D4E8D0;
+    border-color: #C0D9BB;
+
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.key--operator:hover {
+    color: #123D22;
+    background: #BEDDB9;
+    border-color: #8EB58D;
+}
+
+/* Zero button */
+
+.key--zero {
+    grid-column: span 2;
+}
+
+/* Equals button */
+
+.key--equals {
+    grid-column: span 2;
+
+    color: #FFFFFF;
+    background: #276B3C;
+    border-color: #276B3C;
+
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.key--equals:hover {
+    color: #FFFFFF;
+    background: #1D542F;
+    border-color: #1D542F;
+}
+
+/* ========================================
+   6. Footer
+======================================== */
+
+.calculator__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-top: 22px;
+    padding-top: 17px;
+
+    border-top: 1px solid var(--border);
+
+    color: var(--text-secondary);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.calculator__footer span:last-child {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0;
+}
+
+.app__caption {
+    margin-top: 20px;
+
+    color: var(--text-secondary);
+    font-size: 12px;
+    text-align: center;
+}
+
+/* ========================================
+   7. Responsive design
+======================================== */
+
+@media (max-width: 380px) {
+    body {
+        padding: 14px;
+    }
+
+    .calculator {
+        padding: 18px;
+    }
+
+    .calculator__header {
+        gap: 8px;
+        margin-bottom: 22px;
+    }
+
+    .calculator__header h1 {
+        font-size: 22px;
+    }
+
+    .keypad {
+        gap: 8px;
+    }
+
+    .key {
+        min-height: 53px;
+        border-radius: 10px;
+    }
+
+    .display {
+        min-height: 125px;
+        padding: 16px 12px;
+    }
+}
+
+/* ========================================
+   8. Reduced motion accessibility
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}

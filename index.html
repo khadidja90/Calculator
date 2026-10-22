@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="A modern interactive calculator built with vanilla JavaScript.">
+    <title>Calculator | Interactive Tools</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+    <main class="app">
+        <section class="calculator" aria-label="Calculator">
+
+            <header class="calculator__header">
+                <div>
+                    
+                    <h1>Casio</h1>
+                </div>
+
+               
+            </header>
+
+            <section class="display" aria-label="Calculator display">
+                <div
+                    class="display__expression"
+                    id="expression"
+                    aria-label="Current expression"
+                ></div>
+
+                <output
+                    class="display__result"
+                    id="result"
+                    aria-live="polite"
+                    aria-atomic="true"
+                >0</output>
+            </section>
+
+            <section class="keypad" aria-label="Calculator keypad">
+                <button class="key key--utility" data-action="clear" type="button">
+                    AC
+                </button>
+
+                <button class="key key--utility" data-action="delete"
+                    aria-label="Delete last character" type="button">
+                    DEL
+                </button>
+
+                <button class="key key--operator" data-value="(" type="button">
+                    (
+                </button>
+
+                <button class="key key--operator" data-value=")" type="button">
+                    )
+                </button>
+
+                <button class="key" data-value="7" type="button">7</button>
+                <button class="key" data-value="8" type="button">8</button>
+                <button class="key" data-value="9" type="button">9</button>
+
+                <button class="key key--operator" data-value="/" type="button">
+                    ÷
+                </button>
+
+                <button class="key" data-value="4" type="button">4</button>
+                <button class="key" data-value="5" type="button">5</button>
+                <button class="key" data-value="6" type="button">6</button>
+
+                <button class="key key--operator" data-value="*" type="button">
+                    ×
+                </button>
+
+                <button class="key" data-value="1" type="button">1</button>
+                <button class="key" data-value="2" type="button">2</button>
+                <button class="key" data-value="3" type="button">3</button>
+
+                <button class="key key--operator" data-value="-" type="button">
+                    −
+                </button>
+
+                <button class="key key--zero" data-value="0" type="button">
+                    0
+                </button>
+
+                <button class="key" data-value="." type="button">.</button>
+
+                <button class="key key--operator" data-value="+" type="button">
+                    +
+                </button>
+
+                <button class="key key--utility" data-action="clear" type="button">
+                    C
+                </button>
+
+                <button class="key key--equals" data-action="calculate" type="button">
+                    =
+                </button>
+            </section>
+
+            <footer class="calculator__footer">
+                
+            </footer>
+        </section>
+
+       
+    </main>
+</body>
+</html>
